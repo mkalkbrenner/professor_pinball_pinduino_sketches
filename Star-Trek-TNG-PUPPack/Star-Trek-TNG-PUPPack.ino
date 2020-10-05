@@ -8,15 +8,17 @@
 pinduino pd("TNG");
 
 void setup() {
-    Serial.begin(115200);
+    pd.pupSerial()->setSerial(Serial);
+    pd.pin2Dmd()->setSerial(Serial1);
     pd.pin2Dmd()->forwardToPUP(pd.pupSerial());
+    Serial.println("ENGAGE!");
 }
 
 void loop() {
     pd.pin2Dmd()->update();
 
-    if (pd.switchMatrix()->getOnce(/* row */ 2, /* column */ 1, /* ignore for further reads for milli seconds */ 200)) {
-        pd.pupSerial()->postEvent(PUP_TYPE_SWITCH, /* switch number */ 12);
-        pd.switchMatrix()->reset();
-    }
+    //if (pd.switchMatrix()->getOnce(/* row */ 2, /* column */ 1, /* ignore for further reads for milli seconds */ 200)) {
+    //    pd.pupSerial()->postEvent(PUP_TYPE_SWITCH, /* switch number */ 12);
+    //    pd.switchMatrix()->reset();
+    //}
 }
